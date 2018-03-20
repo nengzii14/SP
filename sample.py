@@ -15,36 +15,19 @@ import time, random, multiprocessing, sys, json, codecs, threading, glob, re, st
 #line.log("Auth Token : " + str(line.authToken))
 #line.log("Timeline Token : " + str(line.tl.channelAccessToken))
 
-line = LINE("Token disini")
-line.log("Auth Token : " + str(line.authToken))
-line.log("Timeline Token : " + str(line.tl.channelAccessToken))
-
-ki = LINE("Token disini")
-ki.log("Auth Token : " + str(ki.authToken))
-ki.log("Timeline Token : " + str(ki.tl.channelAccessToken))
-
-kk = LINE("Token disini")
-kk.log("Auth Token : " + str(kk.authToken))
-kk.log("Timeline Token : " + str(kk.tl.channelAccessToken))
-
-kc = LINE("Token disini")
-kc.log("Auth Token : " + str(kc.authToken))
-kc.log("Timeline Token : " + str(kc.tl.channelAccessToken))
-
-ks = LINE("Token disini")
-ks.log("Auth Token : " + str(ks.authToken))
-ks.log("Timeline Token : " + str(ks.tl.channelAccessToken))
+line = LINE()
+#nadya = LINE("TOKEN KAMU")
+#nadya = LINE("Email","Password")
+line.log("Auth Token : " + str(nadya.authToken))
+channelToken = nadya.getChannelResult()
+line.log("Channel Token : " + str(channelToken))
 
 cl = line
 oepoll = OEPoll(cl)
-All = [cl,ki,kk,kc,ks]
+All = [cl]
 mid = cl.profile.mid
-Amid = ki.getProfile().mid
-Bmid = kk.getProfile().mid
-Cmid = kc.getProfile().mid
-Dmid = ks.getProfile().mid
-RABots = [mid,Amid,Bmid,Cmid,Dmid]
-RASuper = ["Mid Kamu"]
+RABots = [mid]
+RASuper = ["u7f558dcb5a7dd310f770242d56c3acef"]
 RAFamily = RASuper + RABots
 Setbot = codecs.open("setting.json","r","utf-8")
 Setmain = json.load(Setbot)
@@ -77,69 +60,9 @@ def bot(op):
                             ra = cl.getGroup(op.param1)
                             cl.sendMessageWithMention(op.param1, ra.creator.mid,"hallo","\nsalken group creator...")
                             
-            if Amid in op.param3:
-                if Setmain["RAautojoin"] == True:
-                    if Setmain["RAbatas"]["on"] == True:
-                        G = ki.getGroup(op.param1)
-                        if len(G.members) > Setmain["RAbatas"]["members"]:
-                            ki.acceptGroupInvitation(op.param1)
-                            ra = ki.getGroup(op.param1)
-                            ki.sendText(op.param1,"Maaf jumlah member\n " + str(ra.name) + " lebih dari " + str(Setmain["RAbatas"]["members"]))
-                            ki.leaveGroup(op.param1)
-                        else:
-                            ki.acceptGroupInvitation(op.param1)
-                            ra = ki.getGroup(op.param1)
-                            ki.sendMessageWithMention(op.param1, ra.creator.mid,"hallo","\nsalken group creator...")
-                            
-            if Bmid in op.param3:
-                if Setmain["RAautojoin"] == True:
-                    if Setmain["RAbatas"]["on"] == True:
-                        G = kk.getGroup(op.param1)
-                        if len(G.members) > Setmain["RAbatas"]["members"]:
-                            kk.acceptGroupInvitation(op.param1)
-                            ra = kk.getGroup(op.param1)
-                            kk.sendText(op.param1,"Maaf jumlah member\n " + str(ra.name) + " lebih dari " + str(Setmain["RAbatas"]["members"]))
-                            kk.leaveGroup(op.param1)
-                        else:
-                            kk.acceptGroupInvitation(op.param1)
-                            ra = kk.getGroup(op.param1)
-                            kk.sendMessageWithMention(op.param1, ra.creator.mid,"hallo","\nsalken group creator...")
-                            
-            if Cmid in op.param3:
-                if Setmain["RAautojoin"] == True:
-                    if Setmain["RAbatas"]["on"] == True:
-                        G = kc.getGroup(op.param1)
-                        if len(G.members) > Setmain["RAbatas"]["members"]:
-                            kc.acceptGroupInvitation(op.param1)
-                            ra = kc.getGroup(op.param1)
-                            kc.sendText(op.param1,"Maaf jumlah member\n " + str(ra.name) + " lebih dari " + str(Setmain["RAbatas"]["members"]))
-                            kc.leaveGroup(op.param1)
-                        else:
-                            kc.acceptGroupInvitation(op.param1)
-                            ra = kc.getGroup(op.param1)
-                            kc.sendMessageWithMention(op.param1, ra.creator.mid,"hallo","\nsalken group creator...")
-                            
-            if Dmid in op.param3:
-                if Setmain["RAautojoin"] == True:
-                    if Setmain["RAbatas"]["on"] == True:
-                        G = ks.getGroup(op.param1)
-                        if len(G.members) > Setmain["RAbatas"]["members"]:
-                            ks.acceptGroupInvitation(op.param1)
-                            ra = ks.getGroup(op.param1)
-                            ks.sendText(op.param1,"Maaf jumlah member\n " + str(ra.name) + " lebih dari " + str(Setmain["RAbatas"]["members"]))
-                            ks.leaveGroup(op.param1)
-                        else:
-                            ks.acceptGroupInvitation(op.param1)
-                            ra = ks.getGroup(op.param1)
-                            ks.sendMessageWithMention(op.param1, ra.creator.mid,"hallo","\nsalken group creator...")
-                            
         if op.type == 46:
             if op.param2 in RABots:
-                cl.removeAllMessages()
-                ki.removeAllMessages()
-                kk.removeAllMessages()
-                kc.removeAllMessages()
-                ks.removeAllMessages() 
+                cl.removeAllMessages() 
                 
         if op.type == 26:
             msg = op.message
@@ -156,7 +79,7 @@ def bot(op):
                 if msg.contentType == 13:
                     if Setmain["RAautoscan"] == True:
                         msg.contentType = 0
-                        cl.sendText(msg.to,msg.contentMetadata["mid"])
+                        cl.sendText(msg.to,msg.contentMetadata["u7f558dcb5a7dd310f770242d56c3acef"])
                         
                 elif msg.contentType == 0:
                     if Setmain["RAautoread"] == True:
